@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New tab</title>
+    <link rel="stylesheet" href="/bootstrap4/css/bootstrap.min.css">
+</head>
+<body>
+
+<div>
+    <form action="/new-page" method="get">
+        <input class="btn btn-success" type="submit" value="Добавить страницу"/>
+        <input type="hidden" value="-1" name="groupId"/>
+    </form>
+</div>
+
+<div class="mx-1 row">
+    <div class="container col-6 my-2" th:each="group:${groups}">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col" th:text="${group.name}"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="container m-2 col-4" th:each="page:${group.getPages()}">
+                        <div class="card">
+                            <a th:href="${page.url}">
+                                <div th:text="${page.title}"></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <form action="/new-page" method="get">
+                    <input class="btn btn-sm btn-success" type="submit" value="+"/>
+                    <input type="hidden" th:value="${group.id}" name="groupId"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
