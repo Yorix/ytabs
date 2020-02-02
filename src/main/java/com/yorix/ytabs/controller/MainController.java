@@ -31,11 +31,12 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("new-page")
+    @GetMapping("new-page/")
     public String newPage(Model model, @RequestParam int groupId) {
         List<Group> groups = groupService.getGroups();
         model.addAttribute("groups", groups);
         model.addAttribute("currentGroupId", groupId);
+        model.addAttribute("logos", null);
         return "new-page";
     }
 

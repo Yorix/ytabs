@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Add new page</title>
     <link rel="stylesheet" href="/bootstrap4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body class="bg-dark text-light">
 
@@ -13,40 +14,52 @@
             Новая страница
         </div>
         <div class="card-body">
-            <form action="/" method="post">
-                <div class="form-group">
-                    <label style="display: block"> Отображаемое имя:
-                        <input class="form-control" type="text" name="title"/>
-                    </label>
+            <div class="row">
+                <div class="col">
+                    <form action="/" method="post">
+                        <div class="form-group">
+                            <label style="display: block"> Ссылка:
+                                <input id="urlInput" class="form-control" type="text" name="url"/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block"> Отображаемое имя:
+                                <input class="form-control" type="text" name="title"/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label id="groupLabel"> Группа:
+                                <select id="groupSelect" name="groupId">
+                                    <option th:each="group:${groups}"
+                                            th:value="${group.id}"
+                                            th:text="${group.name}"
+                                            th:selected="${group.id}==${currentGroupId}">
+                                    </option>
+                                </select>
+                            </label>
+                            <input class="btn btn-light" id="newGroupBtn" type="button" value="Новая группа"
+                                   onclick="newGroup()"/>
+                            <label id="newGroupLabel" style="display: none">
+                                Имя новой группы:
+                                <input id="newGroupInput" class="form-control" type="text" name="groupName"/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input id="submitForm" class="btn btn-success" type="submit" disabled/>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label style="display: block"> Ссылка:
-                        <input id="urlInput" class="form-control" type="text" name="url"/>
-                    </label>
+
+                <div class="col">
+                    Миниатюра:
+                    <div id="thumb" class="row">
+
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label id="groupLabel"> Группа:
-                        <select id="groupSelect" name="groupId">
-                            <option th:each="group:${groups}"
-                                    th:value="${group.id}"
-                                    th:text="${group.name}"
-                                    th:selected="${group.id}==${currentGroupId}">
-                            </option>
-                        </select>
-                    </label>
-                    <input class="btn btn-light" id="newGroupBtn" type="button" value="Новая группа"
-                           onclick="newGroup()"/>
-                    <label id="newGroupLabel" style="display: none">
-                        Имя новой группы:
-                        <input id="newGroupInput" class="form-control" type="text" name="groupName"/>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <input id="submitForm" class="btn btn-success" type="submit" disabled/>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+</div>
 </div>
 
 <script src="/js/new-page.js"></script>

@@ -2,7 +2,6 @@ package com.yorix.ytabs.service;
 
 import com.yorix.ytabs.model.Page;
 import com.yorix.ytabs.storage.PageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -21,7 +20,7 @@ public class PageService {
     }
 
     public void addPage(Page page) {
-        if (!page.getUrl().startsWith("http://"))
+        if (!page.getUrl().startsWith("http"))
             page.setUrl("http://".concat(page.getUrl()));
         if (StringUtils.isEmpty(page.getTitle()))
             page.setTitle(page.getUrl());
