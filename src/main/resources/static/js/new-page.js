@@ -5,7 +5,7 @@ const urlInput = document.getElementById("urlInput");
 const newGroupLabel = document.getElementById("newGroupLabel");
 const request = new XMLHttpRequest();
 const thumbWrapper = document.getElementById("thumb");
-let timerId;
+let requestId = 0;
 
 newGroupInput.addEventListener("input", urlInputCheck);
 urlInput.addEventListener("input", urlInputCheck);
@@ -24,6 +24,12 @@ request.onload = function () {
                 .concat(thumbs[i])
                 .concat(' style="width:100%"/></div>');
     thumbWrapper.innerHTML = html;
+
+    if (requestId > 1) {
+        requestId = 0;
+        urlInputCheck();
+    }
+    requestId = 0;
 };
 
 function sendRequest(url) {
@@ -37,7 +43,8 @@ function sendRequest(url) {
 }
 
 function urlInputCheck() {
-    timerId = setTimeout(sendRequest, 1000, urlInput.value);
+    if (requestId++ === 0)
+        sendRequest(urlInput.value);
 
     if (
         urlInput.value.length > 0 &&
