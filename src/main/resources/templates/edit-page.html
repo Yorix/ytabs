@@ -5,6 +5,9 @@
     <title>Add new page</title>
     <link rel="stylesheet" href="/bootstrap4/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
+        <script th:inline="javascript">
+            var imgFilename = '/file/' + [[${page.imgFilename}]];
+        </script>
 </head>
 <body class="bg-dark text-light">
 
@@ -16,15 +19,18 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <form action="/" method="post">
+                    <form id="pageForm" action="/page/" method="post">
+                        <input type="hidden" name="id" th:value="${page.id}">
                         <div class="form-group">
                             <label style="display: block"> Ссылка:
-                                <input id="urlInput" class="form-control" type="text" name="url"/>
+                                <input id="urlInput" class="form-control" type="text" name="url"
+                                       th:value="${page.url}"/>
                             </label>
                         </div>
                         <div class="form-group">
                             <label style="display: block"> Отображаемое имя:
-                                <input class="form-control" type="text" name="title"/>
+                                <input class="form-control" type="text" name="title"
+                                       th:value="${page.title}"/>
                             </label>
                         </div>
                         <div class="form-group">
@@ -33,7 +39,7 @@
                                     <option th:each="group:${groups}"
                                             th:value="${group.id}"
                                             th:text="${group.name}"
-                                            th:selected="${group.id}==${currentGroupId}">
+                                            th:selected="${group.id}==${page.group.id}">
                                     </option>
                                 </select>
                             </label>
@@ -52,16 +58,16 @@
 
                 <div class="col">
                     Миниатюра:
-                    <div id="thumb" class="row">
-
+                    <input id="imgFilenameInput" type="hidden" form="pageForm" name="imgFilename"
+                           th:value="${page}!=null?${page.imgFilename}:null"/>
+                    <div id="images" class="row">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 
-<script src="/js/new-page.js"></script>
+<script src="/js/edit-page.js"></script>
 </body>
 </html>

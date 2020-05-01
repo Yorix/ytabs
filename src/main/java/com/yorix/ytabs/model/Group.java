@@ -1,6 +1,7 @@
 package com.yorix.ytabs.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "grp")
 @Data
+@ToString(exclude = "pages")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

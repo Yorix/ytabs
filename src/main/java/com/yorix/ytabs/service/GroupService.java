@@ -1,14 +1,10 @@
 package com.yorix.ytabs.service;
 
 import com.yorix.ytabs.model.Group;
-import com.yorix.ytabs.model.Page;
 import com.yorix.ytabs.storage.GroupRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Service
 public class GroupService {
@@ -18,18 +14,18 @@ public class GroupService {
         this.groupRepository = groupRepository;
     }
 
-    public List<Group> getGroups() {
+    public List<Group> getAll() {
         return groupRepository.findAll();
     }
 
-    public void saveGroup(Group group) {
+    public void save(Group group) {
         groupRepository.save(group);
     }
 
-    public Group findGroup(int id, String name) {
+    public Group findGroup(int id, String ... name) {
         return groupRepository.findById(id).orElseGet(() -> {
             Group newGroup = new Group();
-            newGroup.setName(name);
+            newGroup.setName(name[0]);
             return newGroup;
         });
     }

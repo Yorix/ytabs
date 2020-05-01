@@ -9,4 +9,5 @@ import org.springframework.stereotype.Component;
 @Data
 public class AppProperties {
     private String imageStorageLocation;
+    private String defaultImageFilename;
 }

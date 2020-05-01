@@ -3,6 +3,7 @@ package com.yorix.ytabs.configuration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +21,7 @@ public class Init {
     public void init() throws IOException {
         String imageStorageLocation = appProperties.getImageStorageLocation();
         Path location = Paths.get(System.getProperty("user.home").concat(imageStorageLocation));
+        appProperties.setImageStorageLocation(location.toString().concat(File.separator));
         Files.createDirectories(location);
     }
 }

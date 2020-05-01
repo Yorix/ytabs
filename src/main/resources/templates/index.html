@@ -9,10 +9,7 @@
 <body>
 
 <div>
-    <form action="/new-page/" method="get">
-        <input class="btn btn-success" type="submit" value="Добавить страницу"/>
-        <input type="hidden" value="-1" name="groupId"/>
-    </form>
+    <a href="/page/0/" class="btn btn-success">Добавить страницу</a>
 </div>
 
 <div class="mx-1 row">
@@ -27,22 +24,28 @@
                 <div class="row">
                     <div class="container col-4 my-2" th:each="page:${group.getPages()}">
                         <div class="card">
+                            <div class="card-header">
+                                <a th:href="|/page/${page.id}/|" class="btn btn-success btn-sm">
+                                    изменить
+                                </a>
+                            </div>
                             <a th:href="${page.url}">
-                                <div th:text="${page.title}"></div>
+                                <div class="card-body text-center">
+                                    <img class="thumbnail" th:src="|/file/${page.imgFilename}|" src="" alt=""/>
+                                </div>
+                                <div class="card-footer">
+                                    <span th:text="${page.title}"></span>
+                                </div>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <form action="/new-page/" method="get">
-                    <input class="btn btn-sm btn-success" type="submit" value="+"/>
-                    <input type="hidden" th:value="${group.id}" name="groupId"/>
-                </form>
+                <a th:href="|/new-page/${group.id}/|" class="btn btn-success btn-sm">+</a>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>
