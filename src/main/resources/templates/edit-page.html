@@ -5,9 +5,9 @@
     <title>Add new page</title>
     <link rel="stylesheet" href="/bootstrap4/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
-        <script th:inline="javascript">
-            var imgFilename = '/file/' + [[${page.imgFilename}]];
-        </script>
+    <script th:inline="javascript">
+        var imgFilename = '/file/' + [[${page.imgFilename}]];
+    </script>
 </head>
 <body class="bg-dark text-light">
 
@@ -58,8 +58,9 @@
 
                 <div class="col">
                     Миниатюра:
-                    <input id="imgFilenameInput" type="hidden" form="pageForm" name="imgFilename"
+                    <input type="hidden" form="pageForm" name="imgFilename"
                            th:value="${page}!=null?${page.imgFilename}:null"/>
+                    <input id="imgUrlInput" type="hidden" form="pageForm" name="imgUrl"/>
                     <div id="images" class="row">
                     </div>
                 </div>

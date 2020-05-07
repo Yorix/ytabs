@@ -2,7 +2,7 @@ const groupSelect = document.getElementById("groupSelect");
 const submitForm = document.getElementById("submitForm");
 const newGroupInput = document.getElementById("newGroupInput");
 const urlInput = document.getElementById("urlInput");
-const imgFilenameInput = document.getElementById("imgFilenameInput");
+const imgUrlInput = document.getElementById("imgUrlInput");
 const newGroupLabel = document.getElementById("newGroupLabel");
 const request = new XMLHttpRequest();
 const imagesWrapper = document.getElementById("images");
@@ -32,7 +32,7 @@ request.onload = function () {
 
 function setImage(imageUrl) {
     imgFilename = imageUrl;
-    imgFilenameInput.value = imageUrl;
+    imgUrlInput.value = imageUrl;
     html = '<div class="col-12"><img src="' + imgFilename + '" class="page-image" alt/></div>';
     imagesWrapper.innerHTML = html;
     sendRequest(urlInput.value);

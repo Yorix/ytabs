@@ -4,6 +4,7 @@ import com.yorix.ytabs.configuration.AppProperties;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -31,9 +32,9 @@ public class ImageService {
         Document doc;
         try {
             doc = Jsoup.connect(url)
-                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36")
+                    .userAgent("Chrome/81.0.4044.129 Safari/537.36")
                     .referrer("http://www.google.com")
-                    .timeout(0)
+                    .timeout(10000)
                     .followRedirects(true)
                     .get();
         } catch (IOException e) {
@@ -74,14 +75,20 @@ public class ImageService {
         return Stream.concat(stream, metaStream);
     }
 
-    public String downloadImg(String urlStr) throws IOException {
+    public String downloadImg(String urlStr, String oldFilename) throws IOException {
         String filename = UUID.randomUUID().toString();
         String extend = urlStr.replaceAll("^.*(?=\\.\\w+$)", "");
-        File file = new File(appProperties.getImageStorageLocation().concat(filename).concat(extend));
+        filename = filename.concat(extend);
+        String directory = appProperties.getImageStorageLocation();
+        File file = new File(directory.concat(filename));
         URL url = new URL(urlStr);
         BufferedInputStream bis = new BufferedInputStream(url.openStream());
         FileOutputStream fos = new FileOutputStream(file);
         fos.write(bis.readAllBytes());
-        return file.getName();
+        file = new File(directory.concat(oldFilename));
+        file.delete();
+        bis.close();
+        fos.close();
+        return filename;
     }
 }

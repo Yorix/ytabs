@@ -19,7 +19,7 @@ public class ImageController {
 
     @GetMapping("get-all/**")
     public String[] getImages(HttpServletRequest request) {
-        String rawUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-        return imageService.getImages(rawUrl);
+        String url = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        return imageService.getImages(url);
     }
 }

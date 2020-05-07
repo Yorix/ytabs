@@ -11,11 +11,9 @@ import java.util.List;
 @Service
 public class PageService {
     private final PageRepository pageRepository;
-    private final ImageService imageService;
 
-    public PageService(PageRepository pageRepository, ImageService imageService) {
+    public PageService(PageRepository pageRepository) {
         this.pageRepository = pageRepository;
-        this.imageService = imageService;
     }
 
     public List<Page> getAll() {
@@ -33,11 +31,6 @@ public class PageService {
 
         if (StringUtils.isEmpty(page.getTitle()))
             page.setTitle(page.getUrl());
-
-        if (page.getImgFilename().startsWith("http")) {
-            String imageFilename = imageService.downloadImg(page.getImgFilename());
-            page.setImgFilename(imageFilename);
-        }
 
         pageRepository.save(page);
     }
