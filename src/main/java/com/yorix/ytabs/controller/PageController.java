@@ -5,17 +5,17 @@ import com.yorix.ytabs.model.Page;
 import com.yorix.ytabs.service.GroupService;
 import com.yorix.ytabs.service.ImageService;
 import com.yorix.ytabs.service.PageService;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/page/")
+@RequestMapping(path = "/page/", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
 public class PageController {
     private final GroupService groupService;
     private final PageService pageService;
@@ -28,8 +28,7 @@ public class PageController {
     }
 
     @GetMapping("{pageId}/")
-    public ModelAndView newPage(@PathVariable("pageId") Page page) {
-        ModelAndView modelAndView = new ModelAndView("edit-page");
+    public String newPage(@PathVariable("pageId") Page page, Model model) {
         List<Group> groups = groupService.getAll();
 
         if (page == null) {
@@ -38,9 +37,9 @@ public class PageController {
             page.setGroup(group);
         }
 
-        modelAndView.addObject("groups", groups);
-        modelAndView.addObject("page", page);
-        return modelAndView;
+        model.addAttribute("groups", groups);
+        model.addAttribute("page", page);
+        return "edit-page";
     }
 
     @GetMapping("0/{group}/")

@@ -16,7 +16,7 @@ urlInputCheck();
 request.onload = function () {
     const imagesString = this.response;
     const images = imagesString.substring(1, imagesString.length - 1).split(",");
-    html = '<div class="col-12"><img src="' + imgFilename + '" class="page-image" alt/></div>';
+    html = '<div class="col-12"><img src="' + imgFilename + '" class="page-image" alt="alt"/></div>';
     if (images.length === 0 || images[0].substring(0, 5) !== "\"http")
         html = html.concat('no images');
     else
@@ -26,14 +26,14 @@ request.onload = function () {
                 .concat(images[i])
                 .concat(' onclick="setImage(\'')
                 .concat(images[i].replace(/"/g, ""))
-                .concat('\')" style="width:100%" alt/></div>');
+                .concat('\')" style="width:100%" alt="alt"/></div>');
     imagesWrapper.innerHTML = html;
 };
 
 function setImage(imageUrl) {
     imgFilename = imageUrl;
     imgUrlInput.value = imageUrl;
-    html = '<div class="col-12"><img src="' + imgFilename + '" class="page-image" alt/></div>';
+    html = '<div class="col-12"><img src="' + imgFilename + '" class="page-image" alt="alt"/></div>';
     imagesWrapper.innerHTML = html;
     sendRequest(urlInput.value);
 }
@@ -46,7 +46,7 @@ function sendRequest(url) {
 }
 
 function urlInputCheck() {
-    html = '<div class="col-12"><img src="' + imgFilename + '" class="page-image" alt/></div>';
+    html = '<div class="col-12"><img src="' + imgFilename + '" class="page-image" alt="alt"/></div>';
     imagesWrapper.innerHTML = html;
     sendRequest(urlInput.value);
 

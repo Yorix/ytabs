@@ -7,3 +7,19 @@
     height: 200px;
     max-width: 600px;
 }
+
+.card-container {
+    position: relative;
+}
+
+.card-container:hover .btn-right {
+    opacity: 1;
+}
+
+.btn-right {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    opacity: 0;
+    transition: .5s opacity;
+}
